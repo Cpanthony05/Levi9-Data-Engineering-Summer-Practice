@@ -21,3 +21,25 @@ for employee in employees :
     else :
         salary_bracket.setdefault('senior', []).append(employee['name'])
 print(salary_bracket)
+
+dept_average = dict()
+for employee in employees :
+    dept_average.setdefault(employee['dept'],[]).append(employee['salary'])
+highest_salary = 0
+best_department = ""
+for key,value in dept_average.items() :
+    average_salary = sum(value) / len(value)
+    if average_salary > highest_salary :
+        highest_salary = average_salary
+        best_department = key
+print(best_department)
+
+manager_dict = dict()
+for employee in employees :
+    manager_dict.setdefault(employee['manager'],[]).append(employee['name'])
+print(manager_dict)
+
+lookup_dict = dict()
+for employee in employees :
+    lookup_dict.setdefault(employee['name'],[]).append(employee)
+print(lookup_dict)

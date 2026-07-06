@@ -1,7 +1,7 @@
 text = 'to be or not to be that is the question whether tis nobler in the mind to suffer'
 counts = dict()
 words = text.split()
-print(words)
+print("Words in the text" + str(words))
 
 
 for word in words :
