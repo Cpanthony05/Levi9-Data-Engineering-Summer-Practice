@@ -1,0 +1,25 @@
+-- 7.1
+-- Yes we can store BranchName directly on Payments but it depends on what we want to achieve.
+-- The advantage is that we eliminate some joins needed (payments to enrollments to branches).
+-- this makes the query faster and simpler to write
+-- The disadvantage is that if the BranchName is changed we need to change it on every
+-- payment row which may lead to mistakes.
+
+-- 7.2
+-- Yes we can. It would need to be updated in the following cases :
+-- after inserting a new row with PaymentStatus = 'Completed'
+-- after updating an existing payment’s amount or changing its PaymentStatus to/from 'Completed'.
+-- after deleting a completed payment.
+
+-- 7.3
+-- Good idea :
+-- When read‑heavy reporting queries need data that would otherwise require
+-- costly joins or aggregations, and the duplicated data changes very
+-- rarely.  Example: storing the current balance of a customer account on
+-- the Accounts table instead of summing all Transactions each time.
+-- Bad idea : 
+-- When the duplicated column would have to be kept in sync with many
+-- source rows that change frequently, because the maintenance overhead and
+-- risk of mistakes outweigh any read‑performance gain.
+-- Example: storing the total number of lessons a student has taken on the
+-- Students table – every lesson insertion/deletion would need a trigger.
