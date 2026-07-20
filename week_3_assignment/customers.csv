@@ -1,0 +1,9 @@
+customer_id,name,country,signup_date,tier
+1,Alice Martin,Germany,2022-01-15,gold
+2,Bob Chen,USA,2022-03-10,silver
+3,Clara Diaz,Mexico,2022-06-01,bronze
+4,David Kim,South Korea,2021-11-20,gold
+5,Emma Wilson,UK,2023-01-05,silver
+6,Fatima Al-Hassan,UAE,2022-09-14,bronze
+7,George Papadopoulos,Greece,2021-07-30,gold
+8,Hana Tanaka,Japan,2023-02-18,silver
