@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: stg_green_tripdata
+    columns:
+      - name: fare_amount
+        data_tests:
+          - positive_value
+      - name: tip_amount
+        data_tests:
+          - positive_value
+      - name : pickup_location_id
+        data_tests:
+          - relationships :
+              to: ref('stg_taxi_zone_lookup')
+              field: location_id
+  - name: stg_yellow_tripdata
+    columns:
+      - name: pickup_location_id
+        data_tests:
+          - relationships:
+              to: ref('stg_taxi_zone_lookup')
+              field: location_id

@@ -1,0 +1,54 @@
+With View :
+(.venv) PS C:\Users\cpaul\OneDrive\Documente\levi9_practice_repos\week_4_solo_project\my_project> dbt run --select intermediate.* marts.*
+07:22:56  Running with dbt=1.12.0
+07:22:57  Registered adapter: duckdb=1.10.1
+07:22:57  Found 9 models, 1 seed, 7 data tests, 3 sources, 605 macros
+07:22:57
+07:22:57  Concurrency: 1 threads (target='dev')
+07:22:57
+07:22:57  1 of 3 START sql view model main.int_trips_unioned ............................. [RUN]
+07:22:57  1 of 3 OK created sql view model main.int_trips_unioned ........................ [OK in 0.06s]
+07:22:57  2 of 3 START sql view model main.int_trips_enriched ............................ [RUN]
+07:22:57  2 of 3 OK created sql view model main.int_trips_enriched ....................... [OK in 0.02s]
+07:22:57  3 of 3 START sql view model main.fct_trips ..................................... [RUN]
+07:22:57  3 of 3 OK created sql view model main.fct_trips ................................ [OK in 0.03s]
+07:22:57
+07:22:57  Finished running 3 view models in 0 hours 0 minutes and 0.21 seconds (0.21s).
+07:22:57
+07:22:57  Completed successfully
+07:22:57
+07:22:57  Done. PASS=3 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=3
+
+
+(.venv) PS C:\Users\cpaul\OneDrive\Documente\levi9_practice_repos\week_4_solo_project\my_project> dbt run
+07:33:49  Running with dbt=1.12.0
+07:33:49  Registered adapter: duckdb=1.10.1
+07:33:49  Unable to do partial parsing because a project config has changed
+07:33:51  Found 9 models, 1 seed, 7 data tests, 3 sources, 605 macros
+07:33:51
+07:33:51  Concurrency: 1 threads (target='dev')
+07:33:51
+07:33:51  1 of 9 START sql table model main.my_first_dbt_model ........................... [RUN]
+07:33:51  1 of 9 OK created sql table model main.my_first_dbt_model ...................... [OK in 0.06s]
+07:33:51  2 of 9 START sql view model main.stg_fhv_tripdata .............................. [RUN]
+07:33:51  2 of 9 OK created sql view model main.stg_fhv_tripdata ......................... [OK in 0.03s]
+07:33:51  3 of 9 START sql view model main.stg_green_tripdata ............................ [RUN]
+07:33:51  3 of 9 OK created sql view model main.stg_green_tripdata ....................... [OK in 0.02s]
+07:33:51  4 of 9 START sql view model main.stg_taxi_zone_lookup .......................... [RUN]
+07:33:51  4 of 9 OK created sql view model main.stg_taxi_zone_lookup ..................... [OK in 0.02s]
+07:33:51  5 of 9 START sql view model main.stg_yellow_tripdata ........................... [RUN]
+07:33:51  5 of 9 OK created sql view model main.stg_yellow_tripdata ...................... [OK in 0.02s]
+07:33:51  6 of 9 START sql table model main.my_second_dbt_model .......................... [RUN]
+07:33:51  6 of 9 OK created sql table model main.my_second_dbt_model ..................... [OK in 0.02s]
+07:33:51  7 of 9 START sql view model main.int_trips_unioned ............................. [RUN]
+07:33:51  7 of 9 OK created sql view model main.int_trips_unioned ........................ [OK in 0.02s]
+07:33:51  8 of 9 START sql view model main.int_trips_enriched ............................ [RUN]
+07:33:51  8 of 9 OK created sql view model main.int_trips_enriched ....................... [OK in 0.02s]
+07:33:51  9 of 9 START sql view model main.fct_trips ..................................... [RUN]
+07:33:51  9 of 9 OK created sql view model main.fct_trips ................................ [OK in 0.02s]
+07:33:51
+07:33:51  Finished running 2 table models, 7 view models in 0 hours 0 minutes and 0.33 seconds (0.33s).
+07:33:51
+07:33:51  Completed successfully
+07:33:51
+07:33:51  Done. PASS=9 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=9

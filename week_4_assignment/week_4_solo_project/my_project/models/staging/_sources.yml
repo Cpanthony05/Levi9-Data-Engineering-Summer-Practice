@@ -1,0 +1,12 @@
+sources:
+  - name: nyc_taxi
+    tables:
+      - name: green_tripdata
+        meta:
+          external_location: "data/green_tripdata_2026-*.parquet"
+      - name: yellow_tripdata
+        meta:
+          external_location: "data/yellow_tripdata_2026-*.parquet"
+      - name: fhv_tripdata
+        meta:
+          external_location: "data/fhv_tripdata_2026-*.parquet"
