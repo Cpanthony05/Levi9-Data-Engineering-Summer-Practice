@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: fct_trips
+    description: "One row per Divvy trip, grain = ride_id"
+    columns:
+      - name: ride_id
+        description: "Primary key"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: rideable_type
+        data_tests:
+          - accepted_values:
+              values: ['classic_bike', 'electric_bike', 'docked_bike']
+
+      - name: start_station_id
+        data_tests:
+          - not_null
+
+      - name: end_station_id
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
