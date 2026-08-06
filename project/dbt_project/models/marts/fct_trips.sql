@@ -1,4 +1,3 @@
--- models/marts/fct_trips.sql
 {{
     config(
         materialized='incremental',
@@ -7,6 +6,42 @@
     )
 }}
 
+with station_bounds as (
+    select
+        station_id,
+        min(dbt_valid_from) as earliest_valid_from
+    from {{ ref('dim_station_snapshot') }}
+    group by station_id
+),
+
+start_matches as (
+    select
+        t.ride_id,
+        ss.station_id as start_station_id,
+        ss.station_name as start_station_name
+    from {{ ref('stg_trips') }} t
+    join {{ ref('dim_station_snapshot') }} ss
+        on t.start_station_id = ss.station_id
+        and (t.started_at < ss.dbt_valid_to or ss.dbt_valid_to is null)
+    join station_bounds ssb
+        on ss.station_id = ssb.station_id
+        and t.started_at >= ssb.earliest_valid_from
+),
+
+end_matches as (
+    select
+        t.ride_id,
+        es.station_id as end_station_id,
+        es.station_name as end_station_name
+    from {{ ref('stg_trips') }} t
+    join {{ ref('dim_station_snapshot') }} es
+        on t.end_station_id = es.station_id
+        and (t.ended_at < es.dbt_valid_to or es.dbt_valid_to is null)
+    join station_bounds esb
+        on es.station_id = esb.station_id
+        and t.ended_at >= esb.earliest_valid_from
+)
+
 select
     t.ride_id,
     t.rideable_type,
@@ -14,25 +49,13 @@ select
     t.ended_at,
     t.trip_duration_seconds,
     t.member_casual,
-    ss.station_id as start_station_id,
-    ss.station_name as start_station_name,
-    es.station_id as end_station_id,
-    es.station_name as end_station_name
+    sm.start_station_id,
+    sm.start_station_name,
+    em.end_station_id,
+    em.end_station_name
 from {{ ref('stg_trips') }} t
-left join {{ ref('dim_station_snapshot') }} ss
-    on t.start_station_id = ss.station_id
-    and (t.started_at < ss.dbt_valid_to or ss.dbt_valid_to is null)
-    and t.started_at >= (
-        select min(dbt_valid_from) from {{ ref('dim_station_snapshot') }} s2
-        where s2.station_id = ss.station_id
-    )
-left join {{ ref('dim_station_snapshot') }} es
-    on t.end_station_id = es.station_id
-    and (t.ended_at < es.dbt_valid_to or es.dbt_valid_to is null)
-    and t.ended_at >= (
-        select min(dbt_valid_from) from {{ ref('dim_station_snapshot') }} s2
-        where s2.station_id = es.station_id
-    )
+left join start_matches sm on t.ride_id = sm.ride_id
+left join end_matches em on t.ride_id = em.ride_id
 
 {% if is_incremental() %}
 where t.started_at > (select max(started_at) from {{ this }})
