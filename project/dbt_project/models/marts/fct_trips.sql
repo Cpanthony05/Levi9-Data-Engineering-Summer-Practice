@@ -22,9 +22,17 @@ from {{ ref('stg_trips') }} t
 left join {{ ref('dim_station_snapshot') }} ss
     on t.start_station_id = ss.station_id
     and (t.started_at < ss.dbt_valid_to or ss.dbt_valid_to is null)
+    and t.started_at >= (
+        select min(dbt_valid_from) from {{ ref('dim_station_snapshot') }} s2
+        where s2.station_id = ss.station_id
+    )
 left join {{ ref('dim_station_snapshot') }} es
     on t.end_station_id = es.station_id
     and (t.ended_at < es.dbt_valid_to or es.dbt_valid_to is null)
+    and t.ended_at >= (
+        select min(dbt_valid_from) from {{ ref('dim_station_snapshot') }} s2
+        where s2.station_id = es.station_id
+    )
 
 {% if is_incremental() %}
 where t.started_at > (select max(started_at) from {{ this }})
