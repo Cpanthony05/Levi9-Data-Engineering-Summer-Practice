@@ -1,3 +1,4 @@
+-- models/marts/fct_trips.sql
 {{
     config(
         materialized='incremental',
@@ -37,6 +38,7 @@ select
     t.ended_at,
     t.trip_duration_seconds,
     t.member_casual,
+    t.load_month,
     sm.start_station_id,
     sm.start_station_name,
     em.end_station_id,

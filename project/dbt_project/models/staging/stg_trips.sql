@@ -12,6 +12,7 @@ select
     end_lat,
     end_lng,
     member_casual,
+    load_month,
     datediff('second', started_at, ended_at) as trip_duration_seconds
 from {{ source('divvy', 'trips') }}
 qualify row_number() over (
