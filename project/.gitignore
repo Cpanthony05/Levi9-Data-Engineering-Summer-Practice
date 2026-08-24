@@ -1,0 +1,26 @@
+# Python environment
+.venv/
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+
+# Data — large, regenerable, and shouldn't bloat the repo
+source_csv/
+raw/
+warehouse.duckdb
+*.duckdb
+
+# dbt
+dbt_project/target/
+dbt_project/dbt_packages/
+dbt_project/logs/
+
+# Airflow (once you get there)
+logs/
+.env
+
+# OS cruft
+.DS_Store
+Thumbs.db
