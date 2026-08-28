@@ -46,7 +46,7 @@ screenshots/: screenshots used for the documentation/presentation
 
 docker-compose.yml_env: airflow + postgres container definitions and their configurations
 
-## 8. How to run
+## 4. How to run
 
 From a clean checkout, with warehouse.duckdb, raw/ and dbt target directories deleted
 
